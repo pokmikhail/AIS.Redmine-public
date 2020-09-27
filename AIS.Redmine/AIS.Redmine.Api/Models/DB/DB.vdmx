@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" TypesNamespace="AIS.Redmine.Models" DefaultSchema="dbo" DefaultConnectionString="DB" TypesFile="DBModels.cs">
+  <Entities>
+    <Entity Schema="dbo" Name="Configuration" Type="Table" ClassName="Configuration" DbSetName="Configuration">
+      <Description>Настройки системы</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="true" IsConcurrencyToken="false" />
+        <Column Name="Code" PropertyName="Code" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Код параметра</Column>
+        <Column Name="Value" PropertyName="Value" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Значение параметра</Column>
+        <Column Name="Name" PropertyName="Name" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Наименование параметра</Column>
+        <Column Name="Description" PropertyName="Description" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Описание</Column>
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+    </Entity>
+    <Entity Schema="dbo" Name="CustomField" Type="Table" ClassName="CustomField" DbSetName="CustomField">
+      <Description>Настраиваемые поля</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Name" PropertyName="Name" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Наименование</Column>
+        <Column Name="Type" PropertyName="Type" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Код типа</Column>
+        <Column Name="Format" PropertyName="Format" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Код формата</Column>
+        <Column Name="IsRequired" PropertyName="IsRequired" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Обязательное?</Column>
+        <Column Name="IsMultiple" PropertyName="IsMultiple" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Множественное?</Column>
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+    </Entity>
+    <Entity Schema="dbo" Name="Issue" Type="Table" ClassName="Issue" DbSetName="Issue">
+      <Description>Задачи</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="ProjectId" PropertyName="ProjectId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Проект</Column>
+        <Column Name="TrackerId" PropertyName="TrackerId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Трекер</Column>
+        <Column Name="StatusId" PropertyName="StatusId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Статус</Column>
+        <Column Name="PriorityId" PropertyName="PriorityId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Приоритет</Column>
+        <Column Name="AuthorMemberId" PropertyName="AuthorMemberId" Type="Int" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Автор</Column>
+        <Column Name="AssignedToMemberId" PropertyName="AssignedToMemberId" Type="Int" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Назначена</Column>
+        <Column Name="ParentId" PropertyName="ParentId" Type="Int" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Родительская задача</Column>
+        <Column Name="CategoryId" PropertyName="CategoryId" Type="Int" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Категория</Column>
+        <Column Name="VersionId" PropertyName="VersionId" Type="Int" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Версия</Column>
+        <Column Name="Subject" PropertyName="Subject" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Тема</Column>
+        <Column Name="Description" PropertyName="Description" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Описание</Column>
+        <Column Name="StartDate" PropertyName="StartDate" Type="Date" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата начала</Column>
+        <Column Name="DueDate" PropertyName="DueDate" Type="Date" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата завершения</Column>
+        <Column Name="DoneRatio" PropertyName="DoneRatio" Type="Int" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Процент готовности</Column>
+        <Column Name="EstimatedHours" PropertyName="EstimatedHours" Type="Decimal" NumericTotal="9" NumericFraction="2" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Оценка времени, ч</Column>
+        <Column Name="TotalEstimatedHours" PropertyName="TotalEstimatedHours" Type="Decimal" NumericTotal="9" NumericFraction="2" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Оценка времени, включая подзадачи, ч</Column>
+        <Column Name="SpentHours" PropertyName="SpentHours" Type="Decimal" NumericTotal="9" NumericFraction="2" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Затрачено времени, ч</Column>
+        <Column Name="TotalSpentHours" PropertyName="TotalSpentHours" Type="Decimal" NumericTotal="9" NumericFraction="2" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Затрачено времени, включая подзадачи, ч</Column>
+        <Column Name="RedmineCreated" PropertyName="RedmineCreated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата создания в Редмайне</Column>
+        <Column Name="RedmineUpdated" PropertyName="RedmineUpdated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата обновления Дата создания в Редмайне</Column>
+        <Column Name="RedmineClosed" PropertyName="RedmineClosed" Type="DateTimeOffset" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата закрытия в Редмайне</Column>
+        <Column Name="LastHistoryDate" PropertyName="LastHistoryDate" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Последнее изменение по журналу изменений</Column>
+        <Column Name="LastReceivedDate" PropertyName="LastReceivedDate" Type="DateTimeOffset" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата последнего приёма данных из Redmine</Column>
+        <Column Name="IsDeleted" PropertyName="IsDeleted" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Удалена?ы</Column>
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+      <ForeignKeys>
+        <ForeignKey Name="FK_Issue_Issue_Parent" ReferenceSchema="dbo" ReferenceTable="Issue">
+          <Columns>
+            <ForeignKeyColumn Name="ParentId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+        <ForeignKey Name="FK_Issue_IssueCategory" ReferenceSchema="dbo" ReferenceTable="IssueCategory">
+          <Columns>
+            <ForeignKeyColumn Name="CategoryId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+        <ForeignKey Name="FK_Issue_IssuePriority" ReferenceSchema="dbo" ReferenceTable="IssuePriority">
+          <Columns>
+            <ForeignKeyColumn Name="PriorityId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+        <ForeignKey Name="FK_Issue_IssueStatus" ReferenceSchema="dbo" ReferenceTable="IssueStatus">
+          <Columns>
+            <ForeignKeyColumn Name="StatusId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+        <ForeignKey Name="FK_Issue_IssueTracker" ReferenceSchema="dbo" ReferenceTable="IssueTracker">
+          <Columns>
+            <ForeignKeyColumn Name="TrackerId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+        <ForeignKey Name="FK_Issue_IssueVersion" ReferenceSchema="dbo" ReferenceTable="IssueVersion">
+          <Columns>
+            <ForeignKeyColumn Name="VersionId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+        <ForeignKey Name="FK_Issue_Member_AsssignedTo" ReferenceSchema="dbo" ReferenceTable="Member">
+          <Columns>
+            <ForeignKeyColumn Name="AssignedToMemberId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+        <ForeignKey Name="FK_Issue_Member_Author" ReferenceSchema="dbo" ReferenceTable="Member">
+          <Columns>
+            <ForeignKeyColumn Name="AuthorMemberId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+        <ForeignKey Name="FK_Issue_Project" ReferenceSchema="dbo" ReferenceTable="Project">
+          <Columns>
+            <ForeignKeyColumn Name="ProjectId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+      </ForeignKeys>
+    </Entity>
+    <Entity Schema="dbo" Name="IssueCategory" Type="Table" ClassName="IssueCategory" DbSetName="IssueCategory">
+      <Description>Категории задач</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="ProjectId" PropertyName="ProjectId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Проект</Column>
+        <Column Name="Name" PropertyName="Name" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Наименование</Column>
+        <Column Name="RedmineName" PropertyName="RedmineName" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+      <ForeignKeys>
+        <ForeignKey Name="FK_IssueCategory_Project" ReferenceSchema="dbo" ReferenceTable="Project">
+          <Columns>
+            <ForeignKeyColumn Name="ProjectId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+      </ForeignKeys>
+    </Entity>
+    <Entity Schema="dbo" Name="IssueJournal" Type="Table" ClassName="IssueJournal" DbSetName="IssueJournal">
+      <Description>История изменений задачи</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="IssueId" PropertyName="IssueId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Задача</Column>
+        <Column Name="MemberId" PropertyName="MemberId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Пользователь</Column>
+        <Column Name="Comment" PropertyName="Comment" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Примечание</Column>
+        <Column Name="IsPrivate" PropertyName="IsPrivate" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Приватный комментарий?</Column>
+        <Column Name="IsDeleted" PropertyName="IsDeleted" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Удалена?</Column>
+        <Column Name="RedmineCreated" PropertyName="RedmineCreated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата создания в Redmine</Column>
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+      <ForeignKeys>
+        <ForeignKey Name="FK_IssueJournal_Issue" ReferenceSchema="dbo" ReferenceTable="Issue">
+          <Columns>
+            <ForeignKeyColumn Name="IssueId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+        <ForeignKey Name="FK_IssueJournal_Member" ReferenceSchema="dbo" ReferenceTable="Member">
+          <Columns>
+            <ForeignKeyColumn Name="MemberId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+      </ForeignKeys>
+    </Entity>
+    <Entity Schema="dbo" Name="IssuePriority" Type="Table" ClassName="IssuePriority" DbSetName="IssuePriority">
+      <Description>Приоритеты задач</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Code" PropertyName="Code" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Код</Column>
+        <Column Name="Name" PropertyName="Name" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Приоритет</Column>
+        <Column Name="Sort" PropertyName="Sort" Type="Int" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Приоритет числовой</Column>
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+    </Entity>
+    <Entity Schema="dbo" Name="IssueStatus" Type="Table" ClassName="IssueStatus" DbSetName="IssueStatus">
+      <Description>Статусы задач</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Code" PropertyName="Code" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Код</Column>
+        <Column Name="Name" PropertyName="Name" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Статус</Column>
+        <Column Name="RedmineName" PropertyName="RedmineName" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="IsAccepted" PropertyName="IsAccepted" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Задача принята?</Column>
+        <Column Name="IsClosed" PropertyName="IsClosed" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Задача закрыта?</Column>
+        <Column Name="Department" PropertyName="Department" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Отдел, отвечающий за задачу в этом статусе</Column>
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+    </Entity>
+    <Entity Schema="dbo" Name="IssueTracker" Type="Table" ClassName="IssueTracker" DbSetName="IssueTracker">
+      <Description>Трекеры задач</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Name" PropertyName="Name" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Наименование</Column>
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+    </Entity>
+    <Entity Schema="dbo" Name="IssueVersion" Type="Table" ClassName="IssueVersion" DbSetName="IssueVersion">
+      <Description>Версии</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="ProjectId" PropertyName="ProjectId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Проект</Column>
+        <Column Name="Name" PropertyName="Name" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Наименование</Column>
+        <Column Name="DueDate" PropertyName="DueDate" Type="Date" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата выхода</Column>
+        <Column Name="IsClosed" PropertyName="IsClosed" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Версия закрыта?</Column>
+        <Column Name="IsDeleted" PropertyName="IsDeleted" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Запись удалена?</Column>
+        <Column Name="RedmineCreated" PropertyName="RedmineCreated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата создания в Редмайн</Column>
+        <Column Name="RedmineUpdated" PropertyName="RedmineUpdated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата обновления в Редмайн</Column>
+        <Column Name="LastReceivedDate" PropertyName="LastReceivedDate" Type="DateTimeOffset" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата последнего приёма данных из Redmine</Column>
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+      <ForeignKeys>
+        <ForeignKey Name="FK_IssueVersion_Project" ReferenceSchema="dbo" ReferenceTable="Project">
+          <Columns>
+            <ForeignKeyColumn Name="ProjectId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+      </ForeignKeys>
+    </Entity>
+    <Entity Schema="dbo" Name="Member" Type="Table" ClassName="Member" DbSetName="Member">
+      <Description>Пользователи Редмайн</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="true" IsConcurrencyToken="false" />
+        <Column Name="RedmineId" PropertyName="RedmineId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Id в Редмайн</Column>
+        <Column Name="LeadMemberId" PropertyName="LeadMemberId" Type="Int" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Руководитель</Column>
+        <Column Name="Name" PropertyName="Name" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">ФИО</Column>
+        <Column Name="NameAndInitials" PropertyName="NameAndInitials" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Фамилия и инициалы</Column>
+        <Column Name="RedmineLogin" PropertyName="RedmineLogin" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Логин в Редмайн</Column>
+        <Column Name="Department" PropertyName="Department" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Отдел</Column>
+        <Column Name="IsDeleted" PropertyName="IsDeleted" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Запись удалена?</Column>
+        <Column Name="RedmineCreated" PropertyName="RedmineCreated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата создания в Редмайн</Column>
+        <Column Name="LastReceivedDate" PropertyName="LastReceivedDate" Type="DateTimeOffset" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата последнего приёма данных из Redmine</Column>
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+      <ForeignKeys>
+        <ForeignKey Name="FK_Member_Member_LeadMemberId" ReferenceSchema="dbo" ReferenceTable="Member">
+          <Columns>
+            <ForeignKeyColumn Name="LeadMemberId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+      </ForeignKeys>
+    </Entity>
+    <Entity Schema="dbo" Name="Project" Type="Table" ClassName="Project" DbSetName="Project">
+      <Description>Проекты</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="ParentId" PropertyName="ParentId" Type="Int" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Родительский проект</Column>
+        <Column Name="Code" PropertyName="Code" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Код</Column>
+        <Column Name="Name" PropertyName="Name" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Наименование</Column>
+        <Column Name="RedmineName" PropertyName="RedmineName" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Наименование в Редмайн</Column>
+        <Column Name="HasRevisions" PropertyName="HasRevisions" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Работать с ревизиями для проекта?</Column>
+        <Column Name="HasVersions" PropertyName="HasVersions" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Работать с верчиями для проекта?</Column>
+        <Column Name="InstanceCode" PropertyName="InstanceCode" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Код площадки</Column>
+        <Column Name="InstanceName" PropertyName="InstanceName" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Наименование площадки</Column>
+        <Column Name="ContractNumber" PropertyName="ContractNumber" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Номер договора поддержки</Column>
+        <Column Name="ContractExpirationDate" PropertyName="ContractExpirationDate" Type="Date" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">День, до которого действует договор поддержки (если договор не пролонгируется автоматически)</Column>
+        <Column Name="ContractHoursPerMonth" PropertyName="ContractHoursPerMonth" Type="Decimal" NumericTotal="9" NumericFraction="1" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Количество включенных в договор поддержки часов в месяц</Column>
+        <Column Name="GisCertificateExpirationDate" PropertyName="GisCertificateExpirationDate" Type="Date" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">День, до которого действует сертификат сервиса обмена с ГИС ЖКХ (если обмен настроен)</Column>
+        <Column Name="IsDeleted" PropertyName="IsDeleted" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Запись удалена?</Column>
+        <Column Name="RedmineCreated" PropertyName="RedmineCreated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата создания в Редмайн</Column>
+        <Column Name="LastReceivedDate" PropertyName="LastReceivedDate" Type="DateTimeOffset" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата последнего приёма данных из Redmine</Column>
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+      <ForeignKeys>
+        <ForeignKey Name="FK_Project_Project" ReferenceSchema="dbo" ReferenceTable="Project">
+          <Columns>
+            <ForeignKeyColumn Name="ParentId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+      </ForeignKeys>
+    </Entity>
+    <Entity Schema="dbo" Name="TimeEntry" Type="Table" ClassName="TimeEntry" DbSetName="TimeEntry">
+      <Description>Трудозатраты</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="ProjectId" PropertyName="ProjectId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Проект</Column>
+        <Column Name="IssueId" PropertyName="IssueId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Задача</Column>
+        <Column Name="MemberId" PropertyName="MemberId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Пользователь</Column>
+        <Column Name="Date" PropertyName="Date" Type="Date" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата</Column>
+        <Column Name="TypeId" PropertyName="TypeId" Type="Int" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Тип</Column>
+        <Column Name="Hours" PropertyName="Hours" Type="Decimal" NumericTotal="9" NumericFraction="2" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Часы</Column>
+        <Column Name="Comments" PropertyName="Comments" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Комметарий</Column>
+        <Column Name="RedmineCreated" PropertyName="RedmineCreated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата создания в Redmine</Column>
+        <Column Name="RedmineUpdated" PropertyName="RedmineUpdated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата обновления в Redmine</Column>
+        <Column Name="LastReceivedDate" PropertyName="LastReceivedDate" Type="DateTimeOffset" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Дата последнего приёма данных из Redmine</Column>
+        <Column Name="IsDeleted" PropertyName="IsDeleted" Type="Bit" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Удалено?</Column>
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+      <ForeignKeys>
+        <ForeignKey Name="FK_TimeEntry_Issue" ReferenceSchema="dbo" ReferenceTable="Issue">
+          <Columns>
+            <ForeignKeyColumn Name="IssueId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+        <ForeignKey Name="FK_TimeEntry_Member" ReferenceSchema="dbo" ReferenceTable="Member">
+          <Columns>
+            <ForeignKeyColumn Name="MemberId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+        <ForeignKey Name="FK_TimeEntry_Project" ReferenceSchema="dbo" ReferenceTable="Project">
+          <Columns>
+            <ForeignKeyColumn Name="ProjectId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+        <ForeignKey Name="FK_TimeEntry_TimeEntryType" ReferenceSchema="dbo" ReferenceTable="TimeEntryType">
+          <Columns>
+            <ForeignKeyColumn Name="TypeId" ReferenceName="Id" />
+          </Columns>
+        </ForeignKey>
+      </ForeignKeys>
+    </Entity>
+    <Entity Schema="dbo" Name="TimeEntryType" Type="Table" ClassName="TimeEntryType" DbSetName="TimeEntryType">
+      <Description>Типы трудозатрат</Description>
+      <Columns>
+        <Column Name="Id" PropertyName="Id" Type="Int" IsNullable="false" IsPrimaryKey="true" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Code" PropertyName="Code" Type="NVarChar" IsNullable="true" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Код</Column>
+        <Column Name="Name" PropertyName="Name" Type="NVarChar" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false">Тип</Column>
+        <Column Name="Created" PropertyName="Created" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+        <Column Name="Updated" PropertyName="Updated" Type="DateTimeOffset" IsNullable="false" IsPrimaryKey="false" IsComputed="false" IsIdentity="false" IsConcurrencyToken="false" />
+      </Columns>
+    </Entity>
+  </Entities>
+  <Routines />
+  <Contexts>
+    <Context Type="EFCore3" Name="Main" FilePath="DB.cs" Namespace="AIS.Redmine.Api.Models" Class="DB">
+      <Items>
+        <ContextItem Type="Entity" Schema="dbo" Name="Configuration" />
+        <ContextItem Type="Entity" Schema="dbo" Name="CustomField" />
+        <ContextItem Type="Entity" Schema="dbo" Name="Issue" />
+        <ContextItem Type="Entity" Schema="dbo" Name="IssueCategory" />
+        <ContextItem Type="Entity" Schema="dbo" Name="IssueJournal" />
+        <ContextItem Type="Entity" Schema="dbo" Name="IssuePriority" />
+        <ContextItem Type="Entity" Schema="dbo" Name="IssueStatus" />
+        <ContextItem Type="Entity" Schema="dbo" Name="IssueTracker" />
+        <ContextItem Type="Entity" Schema="dbo" Name="IssueVersion" />
+        <ContextItem Type="Entity" Schema="dbo" Name="Member" />
+        <ContextItem Type="Entity" Schema="dbo" Name="Project" />
+        <ContextItem Type="Entity" Schema="dbo" Name="TimeEntry" />
+        <ContextItem Type="Entity" Schema="dbo" Name="TimeEntryType" />
+      </Items>
+    </Context>
+  </Contexts>
+</Schema>
