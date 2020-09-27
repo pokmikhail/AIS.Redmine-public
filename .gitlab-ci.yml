@@ -1,0 +1,39 @@
+#image: microsoft/dotnet:latest
+
+.only-default: &only-default
+  only:
+    - master
+    - merge_requests
+    - tags
+
+stages:
+  - build
+  - publish
+
+before_script:
+  - 'chcp 65001'
+
+build:
+  <<: *only-default
+  stage: build
+  script:
+    - 'dotnet restore AIS.Redmine'
+    - 'dotnet build --no-restore AIS.Redmine /p:OutputPath=bin\DeployRelease\ /p:Configuration=Release'
+  tags:
+    - shell
+    - windows
+
+publish_release:
+  stage: publish
+  variables:
+    ASPNETCORE_ENVIRONMENT: "Production"
+  script:
+    - 'dotnet publish AIS.Redmine /p:OutputPath=bin\DeployRelease\ /p:Configuration=Release /p:PublishProfile=WebDeploy /p:Password=%DEPLOY_PASS% /p:AllowUntrustedCertificate=true /nologo /p:MSDeployServiceURL=%DEPLOY_URL% /p:DeployIisAppPath=%DEPLOY_APP%'
+  tags:
+    - shell
+    - windows
+  environment:
+    name: release
+    url: https://redmine-helper.aisgorod.ru/
+  only:
+    - master
