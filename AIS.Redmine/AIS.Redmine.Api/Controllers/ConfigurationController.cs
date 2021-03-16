@@ -30,7 +30,7 @@ namespace AIS.Redmine.Api.Controllers
         }
 
         [HttpGet]
-        public ApiResponse<List<ConfigItem>> Get()
+        public ActionResult<List<ConfigItem>> Get()
         {
             var list =
                 from d in _db.Configuration
@@ -45,11 +45,11 @@ namespace AIS.Redmine.Api.Controllers
 
             var result = list.ToList();
 
-            return new ApiResponse<List<ConfigItem>>(result);
+            return result;
         }
 
         [HttpGet("{parameterName}")]
-        public ApiResponse<ConfigItem> Get(string parameterName)
+        public ActionResult<ConfigItem> Get(string parameterName)
         {
             var item = _db.Configuration.FirstOrDefault(d => d.Code == parameterName);
 
@@ -64,11 +64,11 @@ namespace AIS.Redmine.Api.Controllers
                 Value = item.Value
             };
 
-            return new ApiResponse<ConfigItem>(result);
+            return result;
         }
 
         [HttpPost("{parameterName}")]
-        public async Task<ApiResponse> Set(string parameterName, string value)
+        public async Task<ActionResult> Set(string parameterName, string value)
         {
             var item = _db.Configuration.FirstOrDefault(d => d.Code == parameterName);
 
@@ -81,7 +81,7 @@ namespace AIS.Redmine.Api.Controllers
 
             _config.Reset();
 
-            return new ApiResponse();
+            return Ok();
         }
     }
 }

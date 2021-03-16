@@ -71,7 +71,7 @@ namespace AIS.Redmine.Api.Controllers
         /// Imports core references: Members, Projects, Time entry types, Versions, Issue statuses/priorities/trackers/categories/custom fields.
         /// </summary>
         [HttpPost("ImportCoreData")]
-        public async Task<ApiResponse<ImportCoreDataStats>> ImportCoreData()
+        public async Task<ActionResult<ImportCoreDataStats>> ImportCoreData()
         {
             // based on http://www.redmine.org/projects/redmine/wiki/Rest_api
             var sw = new Stopwatch();
@@ -190,7 +190,7 @@ namespace AIS.Redmine.Api.Controllers
 
             sw.Stop();
 
-            return ApiResponse.Create(result);
+            return result;
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace AIS.Redmine.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("ImportIssues/All")]
-        public async Task<ApiResponse<ImportIssuesStats>> ImportAllIssues()
+        public async Task<ActionResult<ImportIssuesStats>> ImportAllIssues()
         {
             return await ImportIssues(null, null);
         }
@@ -208,7 +208,7 @@ namespace AIS.Redmine.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("ImportIssues/New")]
-        public async Task<ApiResponse<ImportIssuesStats>> ImportNewIssues()
+        public async Task<ActionResult<ImportIssuesStats>> ImportNewIssues()
         {
             DateTime? dateStartUtc = null;
 
@@ -227,7 +227,7 @@ namespace AIS.Redmine.Api.Controllers
         /// <param name="dateEndUtc">Period end for issue import, UTC</param>
         /// <returns></returns>
         [HttpPost("ImportIssues/Custom")]
-        public async Task<ApiResponse<ImportIssuesStats>> ImportIssues(
+        public async Task<ActionResult<ImportIssuesStats>> ImportIssues(
             DateTime? dateStartUtc,
             DateTime? dateEndUtc
             )
@@ -313,7 +313,7 @@ namespace AIS.Redmine.Api.Controllers
             sw.Stop();
             _logger.LogDebug($"Issues import. Finish. {sw.Elapsed}");
 
-            return ApiResponse.Create(result);
+            return result;
         }
 
         /// <summary>
@@ -321,7 +321,7 @@ namespace AIS.Redmine.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("ImportTimeEntries/All")]
-        public async Task<ApiResponse<ImportStats>> ImportAllTimeEntries()
+        public async Task<ActionResult<ImportStats>> ImportAllTimeEntries()
         {
             return await ImportTimeEntries(null, null);
         }
@@ -331,7 +331,7 @@ namespace AIS.Redmine.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("ImportTimeEntries/New")]
-        public async Task<ApiResponse<ImportStats>> ImportNewTimeEntries()
+        public async Task<ActionResult<ImportStats>> ImportNewTimeEntries()
         {
             DateTime? dateStart = null;
 
@@ -351,7 +351,7 @@ namespace AIS.Redmine.Api.Controllers
         /// <param name="dateEnd">Day to import time entries to</param>
         /// <returns></returns>
         [HttpPost("ImportTimeEntries/Custom")]
-        public async Task<ApiResponse<ImportStats>> ImportTimeEntries(
+        public async Task<ActionResult<ImportStats>> ImportTimeEntries(
             DateTime? dateStart,
             DateTime? dateEnd
             )
@@ -413,7 +413,7 @@ namespace AIS.Redmine.Api.Controllers
             sw.Stop();
             _logger.LogDebug($"Time entries import. Finish. {sw.Elapsed}");
 
-            return ApiResponse.Create(result);
+            return result;
         }
 
         /// <summary>
@@ -768,6 +768,7 @@ namespace AIS.Redmine.Api.Controllers
         {
             using var scope = _services.CreateScope();
             using var _db = scope.ServiceProvider.GetRequiredService<DB>();
+
             var uriList = new List<string>();
 
             var projects = (
